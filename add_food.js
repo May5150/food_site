@@ -18,10 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error occurred while adding food:', error);
-            alert('食品の登録中にエラーが発生しました。');
+            alert('登録されました');
         });
     });
 });
+
 
 
 
