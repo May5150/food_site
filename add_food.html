@@ -5,20 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>食品登録</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <header class="header">
+        <header>
             <h1>食品登録</h1>
         </header>
 
         <main class="main-content">
-            <button id="startScanner" class="button">バーコードを読み取る</button>
-            <div id="barcode-scanner" class="scanner" style="display: none;">
-                <div id="interactive" class="viewport"></div>
-                <button id="readBarcode" class="button" style="margin-top: 10px;">読み取る</button>
-            </div>
             <form id="foodForm">
                 <div class="form-group">
                     <label for="foodName">食品名:</label>
@@ -32,109 +26,23 @@
                     <button type="submit" class="button">登録</button>
                 </div>
             </form>
+
+            <button id="startScanButton" class="button">バーコードを読み取る</button>
+            <div id="barcodeScanner" style="display: none;"></div>
+            <button id="captureButton" class="button" style="display: none;">読み取る</button>
         </main>
 
         <footer class="footer">
             <a href="dashboard.html" class="button">ホームに戻る</a>
         </footer>
+
+        <div id="messageBox" style="display: none;">
+            <p>食品情報が登録されました</p>
+            <button id="closeButton" class="button">閉じる</button>
+        </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let scannerActive = false;
-
-            document.getElementById('startScanner').addEventListener('click', function() {
-                this.style.display = 'none';
-                document.getElementById('barcode-scanner').style.display = 'block';
-
-                Quagga.init({
-                    inputStream: {
-                        name: "Live",
-                        type: "LiveStream",
-                        target: document.querySelector('#interactive'),
-                        constraints: {
-                            width: 640,
-                            height: 480,
-                            facingMode: "environment"
-                        }
-                    },
-                    decoder: {
-                        readers: ["ean_reader"]
-                    },
-                    locate: true
-                }, function(err) {
-                    if (err) {
-                        console.error(err);
-                        return;
-                    }
-                    Quagga.start();
-                    scannerActive = true;
-                });
-            });
-
-            document.getElementById('readBarcode').addEventListener('click', function() {
-                if (!scannerActive) return;
-
-                Quagga.onDetected(function(result) {
-                    var code = result.codeResult.code;
-                    console.log('バーコード:', code);
-
-                    fetch(`https://world.openfoodfacts.org/api/v0/product/${code}.json`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 1) {
-                                var product = data.product;
-                                document.getElementById('foodName').value = product.product_name;
-                                alert('食品情報が取得されました。');
-                                Quagga.stop();
-                                document.getElementById('barcode-scanner').style.display = 'none';
-                                scannerActive = false;
-                            } else {
-                                alert('食品情報が見つかりませんでした。');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error fetching product data:', error);
-                            alert('食品情報の取得中にエラーが発生しました。');
-                        });
-                });
-            });
-
-            document.getElementById('foodForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                var foodName = document.getElementById('foodName').value;
-                var expiryDate = document.getElementById('expiryDate').value;
-
-                fetch('http://localhost:5000/api/add_food', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        foodName: foodName,
-                        expiryDate: expiryDate
-                    })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    alert('食品が登録されました。');
-                    document.getElementById('foodForm').reset();
-                })
-                .catch(error => {
-                    console.error('Error occurred while adding food:', error);
-                    alert('食品登録中にエラーが発生しました。');
-                });
-            });
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <script src="add_food.js"></script>
 </body>
 </html>
-
-
-
