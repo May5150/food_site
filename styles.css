@@ -152,3 +152,35 @@ button[type="submit"]:hover {
 .button:hover {
   background-color: #79d8a8; /* ホバーエフェクト */
 }
+
+/* Camera styles */
+#barcodeScanner {
+  width: 100%;
+  max-width: 600px; /* カメラ映像の最大幅を600pxに設定 */
+  margin: 0 auto; /* 中央揃え */
+  border: 1px solid #ddd; /* 枠線を追加 */
+  border-radius: 10px; /* 角を丸く */
+  box-sizing: border-box;
+  background-color: #000; /* 背景色を黒に */
+}
+
+#startScanButton {
+  display: block;
+  margin: 20px auto 10px; /* 上部に余白を追加 */
+}
+
+#captureButton {
+  display: block;
+  margin: 10px auto; /* カメラ映像のすぐ下に配置 */
+  padding: 10px 20px;
+  background-color: #a8e6cf; /* ボタンの背景色を薄い黄緑に */
+  color: #ffffff; /* ボタンのテキストの色 */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#captureButton:hover {
+  background-color: #79d8a8; /* ホバーエフェクト */
+}
