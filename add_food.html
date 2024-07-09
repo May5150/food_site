@@ -17,6 +17,7 @@
             <button id="startScanner" class="button">バーコードを読み取る</button>
             <div id="barcode-scanner" class="scanner" style="display: none; position: relative;">
                 <button id="readBarcode" class="button" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);">読み取る</button>
+                <div id="interactive" class="viewport"></div>
             </div>
             <form id="foodForm">
                 <div class="form-group">
@@ -40,36 +41,44 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            let scannerActive = false;
+
             document.getElementById('startScanner').addEventListener('click', function() {
                 this.style.display = 'none';
                 document.getElementById('barcode-scanner').style.display = 'block';
 
-                // QuaggaJSの設定
                 Quagga.init({
                     inputStream: {
                         name: "Live",
                         type: "LiveStream",
-                        target: document.querySelector('#barcode-scanner')
+                        target: document.querySelector('#interactive'),
+                        constraints: {
+                            width: 640,
+                            height: 480,
+                            facingMode: "environment"
+                        }
                     },
                     decoder: {
                         readers: ["ean_reader"]
-                    }
+                    },
+                    locate: true
                 }, function(err) {
                     if (err) {
                         console.error(err);
                         return;
                     }
                     Quagga.start();
+                    scannerActive = true;
                 });
             });
 
             document.getElementById('readBarcode').addEventListener('click', function() {
-                // バーコードが検出されたときの処理
+                if (!scannerActive) return;
+
                 Quagga.onDetected(function(result) {
                     var code = result.codeResult.code;
                     console.log('バーコード:', code);
 
-                    // バーコードを使って食品情報を取得
                     fetch(`https://world.openfoodfacts.org/api/v0/product/${code}.json`)
                         .then(response => response.json())
                         .then(data => {
@@ -77,8 +86,9 @@
                                 var product = data.product;
                                 document.getElementById('foodName').value = product.product_name;
                                 alert('食品情報が取得されました。');
-                                Quagga.stop(); // バーコードスキャンの停止
+                                Quagga.stop();
                                 document.getElementById('barcode-scanner').style.display = 'none';
+                                scannerActive = false;
                             } else {
                                 alert('食品情報が見つかりませんでした。');
                             }
@@ -90,7 +100,6 @@
                 });
             });
 
-            // フォームの送信
             document.getElementById('foodForm').addEventListener('submit', function(event) {
                 event.preventDefault();
 
@@ -126,5 +135,6 @@
     </script>
 </body>
 </html>
+
 
 
