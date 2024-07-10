@@ -1,90 +1,14 @@
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #e0ffce; /* ページ全体の背景色を薄い黄緑に */
+  background-color: #e0ffce;
   margin: 0;
   padding: 0;
 }
 
-/* Dashboard-specific styles */
-.dashboard-container {
-  max-width: 1200px;
-  margin: 50px auto;
-  background-color: #f0ffe6; /* コンテンツの背景色を薄い黄緑に */
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* 軽い影の効果 */
-}
-
-.dashboard-header {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.dashboard-header h1 {
-  font-size: 28px;
-  color: #333333; /* ヘッダーのテキストの色 */
-  margin: 0;
-}
-
-.dashboard-main-content {
-  text-align: center;
-}
-
-.dashboard-main-content h2 {
-  font-size: 24px;
-  color: #333333; /* セクションタイトルの色 */
-  margin-bottom: 20px;
-}
-
-.dashboard-food-list {
-  background-color: #d4f5a1; /* 食品リスト部分の背景色を薄い黄緑に */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-food-list ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.dashboard-food-list li {
-  font-size: 16px;
-  color: #666666; /* リストアイテムのテキストの色 */
-  margin-bottom: 10px;
-}
-
-.dashboard-food-list input[type="checkbox"] {
-  margin-right: 10px;
-}
-
-.button {
-  padding: 10px 20px;
-  background-color: #a8e6cf; /* ボタンの背景色を薄い黄緑に */
-  color: #ffffff; /* ボタンのテキストの色 */
-  text-decoration: none;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.button:hover {
-  background-color: #79d8a8; /* ホバーエフェクト */
-}
-
-.footer {
-  text-align: center;
-  margin-top: 30px;
-  font-size: 14px;
-  color: #666666; /* フッターのテキストの色 */
-}
-
-/* Default styles */
 .container {
   max-width: 800px;
   margin: 50px auto;
-  background-color: #f0ffe6; /* コンテンツの背景色を薄い黄緑に */
+  background-color: #f0ffe6;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -119,22 +43,19 @@ input[type="date"] {
   box-sizing: border-box;
 }
 
-button[type="submit"],
-.button {
+button[type="submit"] {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #a8e6cf; /* ボタンの背景色を薄い黄緑に */
+  background-color: #a8e6cf;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  text-decoration: none; /* 追加 */
 }
 
-button[type="submit"]:hover,
-.button:hover {
-  background-color: #79d8a8; /* ホバーエフェクト */
+button[type="submit"]:hover {
+  background-color: #79d8a8;
 }
 
 .footer {
@@ -142,28 +63,41 @@ button[type="submit"]:hover,
   text-align: center;
 }
 
-/* Camera styles */
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #2bc98f;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #79d8a8;
+}
+
 #barcodeScanner {
   width: 100%;
-  max-width: 600px; /* カメラ映像の最大幅を600pxに設定 */
-  margin: 0 auto; /* 中央揃え */
-  border: 1px solid #ddd; /* 枠線を追加 */
-  border-radius: 10px; /* 角を丸く */
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
   box-sizing: border-box;
-  background-color: #000; /* 背景色を黒に */
+  background-color: #000;
 }
 
 #startScanButton {
   display: block;
-  margin: 20px auto 10px; /* 上部に余白を追加 */
+  margin: 20px auto 10px;
 }
 
 #captureButton {
   display: block;
-  margin: 10px auto; /* カメラ映像のすぐ下に配置 */
+  margin: 10px auto;
   padding: 10px 20px;
-  background-color: #a8e6cf; /* ボタンの背景色を薄い黄緑に */
-  color: #ffffff; /* ボタンのテキストの色 */
+  background-color: #a8e6cf;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -171,6 +105,7 @@ button[type="submit"]:hover,
 }
 
 #captureButton:hover {
-  background-color: #79d8a8; /* ホバーエフェクト */
+  background-color: #79d8a8;
 }
+
 
