@@ -65,13 +65,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const code = data.codeResult.code;
             console.log(`バーコード: ${code}`);
 
-            // Open Food Facts APIを使用して商品名を取得
+            // バーコードから食品名を取得する処理を追加
             fetch(`https://world.openfoodfacts.org/api/v0/product/${code}.json`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 1) {
                         let product = data.product;
-                        foodNameInput.value = product.product_name;
+                        foodNameInput.value = product.product_name || `食品名(${code})`;
                     } else {
                         alert('商品情報が見つかりませんでした。');
                     }
@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
         startScanButton.style.display = 'block';
     });
 });
+
 
 
 
